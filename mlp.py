@@ -103,7 +103,6 @@ class SquaredError(LossFunction):
     def derivative(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
         return y_pred - y_true
 
-
 class CrossEntropy(LossFunction):
     
     def one_hot_encode(self, y: np.ndarray, num_classes: int) -> np.ndarray:
@@ -118,7 +117,6 @@ class CrossEntropy(LossFunction):
     def derivative(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
         
         return y_pred - y_true
-
 
 class Layer:
     def __init__(self, fan_in: int, fan_out: int, activation_function: ActivationFunction):

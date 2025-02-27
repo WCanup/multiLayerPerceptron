@@ -135,10 +135,29 @@ testLoss = np.mean(testLosses)
 print("Final Test Loss: {}".format(testLoss))
 
 
-plt.plot(trainingLoss, label='Training',color='b')
+#Calculate accuracy
+predicted_labels = np.argmax(predictionT, axis=1)
+true_labels = np.argmax(test_y, axis=1)
+accuracy = np.mean(predicted_labels == true_labels)
+print("Test Accuracy: {:.2f}%".format(accuracy * 100))
+
+# Select 1 sample for each class (0-9) from testing and show these samples along with the predicted class for each
+samples = []
+for i in range(10):
+    idx = np.where(true_labels == i)[0][0]
+    samples.append((test_x[idx].reshape(28, 28), predicted_labels[idx]))
+
+# Show the selected samples
+plt.figure(figsize=(10, 10))
+show_images([s[0] for s in samples], [f"Predicted: {s[1]}" for s in samples])
+plt.show()
+
+# Plot loss curve
+plt.figure(figsize=(10, 5))
+plt.plot(trainingLoss, label='Training', color='b')
 plt.plot(validationLoss, label='Validation', color='r')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('Loss Curve', size = 16)
+plt.title('Loss Curve', size=16)
 plt.legend()
 plt.show()

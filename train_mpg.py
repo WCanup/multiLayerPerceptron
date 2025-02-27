@@ -78,7 +78,7 @@ layer_four = Layer(fan_in =32, fan_out=y_dimensions, activation_function=Linear(
 
 multiLayerPerceptron = MultilayerPerceptron(layers=(layer_one, layer_two, layer_three,layer_four))
 
-trainingLoss, validationLoss = multiLayerPerceptron.train(train_x=X_train_np, train_y=y_train_np, val_x=X_val_np, val_y=y_val_np, loss_func=SquaredError(), learning_rate=1E-3, batch_size=16, epochs=150)
+trainingLoss, validationLoss = multiLayerPerceptron.train(train_x=X_train_np, train_y=y_train_np, val_x=X_val_np, val_y=y_val_np, loss_func=SquaredError(), learning_rate=1E-3, batch_size=16, epochs=200)
 
 lossf = SquaredError()
 
@@ -86,6 +86,13 @@ test_predictions = multiLayerPerceptron.forward(X_test_np)
 test_loss = lossf.loss(y_true=y_test_np, y_pred=test_predictions)
 print(f"\nFinal Test Loss: {test_loss:.4f}")
 
+# Create a table with 10 predicted values and their true values
+predictions = pd.DataFrame({
+    "Predicted": test_predictions[:10].flatten(),
+    "True": y_test_np[:10].flatten()
+})
+
+print(predictions)
 
 
 plt.plot(trainingLoss, label='Training',color='b')
